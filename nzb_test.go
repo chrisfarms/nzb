@@ -1,7 +1,7 @@
 package nzb
 
-import(
-    "testing"
+import (
+	"testing"
 )
 
 const testNzbXml = `<?xml version="1.0" encoding="utf-8" ?>
@@ -24,36 +24,36 @@ const testNzbXml = `<?xml version="1.0" encoding="utf-8" ?>
 </nzb>`
 
 func TestNzbParse(t *testing.T) {
-    nzb,err := NewString(testNzbXml)    
-    if err != nil {
-        t.Fatalf("expected to parse nzb data: " + err.String())
-    }
-    if nzb.Meta["title"] != "Your File!" {
-        t.Errorf("expected name data to be 'Your File' got %s", nzb.Meta["title"])
-    }
-    if len(nzb.Files) != 1 {
-        t.Fatalf("expected 1 file got %d", len(nzb.Files))
-    }
-    f := nzb.Files[0]
-    if f.Subject != "abc-mr2a.r01 (1/2)" {
-        t.Errorf("expected file subject to be abc-mr2a.r01 (1/2) but got %v", f.Subject)
-    }
-    if len(f.Groups) != 2 {
-        t.Fatalf("expected there to be 2 groups got %d", len(f.Groups))
-    }
-    if f.Groups[0] != "alt.binaries.newzbin" {
-        t.Errorf("expected group[0] to be alt.binaries.newzbin")
-    }
-    if len(f.Segments) != 2 {
-        t.Fatalf("expected there to be 2 segments got %d", len(f.Segments))
-    }
-    if f.Segments[0].Bytes != 102394 {
-        t.Errorf("expected segment[0].Bytes to be 102394 but got %d", f.Segments[0].Bytes)
-    }
-    if f.Segments[0].Number != 1 {
-        t.Errorf("expected segment[0].Bytes to be 1 but got %d", f.Segments[0].Number)
-    }
-    if f.Segments[0].Id != "123456789abcdef@news.newzbin.com" {
-        t.Errorf("expected message id to be 123456789abcdef@news.newzbin.com but got %s", f.Segments[0].Id)
-    }
+	nzb, err := NewString(testNzbXml)
+	if err != nil {
+		t.Fatalf("expected to parse nzb data: " + err.String())
+	}
+	if nzb.Meta["title"] != "Your File!" {
+		t.Errorf("expected name data to be 'Your File' got %s", nzb.Meta["title"])
+	}
+	if len(nzb.Files) != 1 {
+		t.Fatalf("expected 1 file got %d", len(nzb.Files))
+	}
+	f := nzb.Files[0]
+	if f.Subject != "abc-mr2a.r01 (1/2)" {
+		t.Errorf("expected file subject to be abc-mr2a.r01 (1/2) but got %v", f.Subject)
+	}
+	if len(f.Groups) != 2 {
+		t.Fatalf("expected there to be 2 groups got %d", len(f.Groups))
+	}
+	if f.Groups[0] != "alt.binaries.newzbin" {
+		t.Errorf("expected group[0] to be alt.binaries.newzbin")
+	}
+	if len(f.Segments) != 2 {
+		t.Fatalf("expected there to be 2 segments got %d", len(f.Segments))
+	}
+	if f.Segments[0].Bytes != 102394 {
+		t.Errorf("expected segment[0].Bytes to be 102394 but got %d", f.Segments[0].Bytes)
+	}
+	if f.Segments[0].Number != 1 {
+		t.Errorf("expected segment[0].Bytes to be 1 but got %d", f.Segments[0].Number)
+	}
+	if f.Segments[0].Id != "123456789abcdef@news.newzbin.com" {
+		t.Errorf("expected message id to be 123456789abcdef@news.newzbin.com but got %s", f.Segments[0].Id)
+	}
 }
