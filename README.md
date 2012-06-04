@@ -7,7 +7,7 @@ Install
 -------
 
 ```
-goinstall github.com/chrisfarms/nzb
+go get github.com/chrisfarms/nzb
 ```
 
 
@@ -17,26 +17,22 @@ Godoc
 ```go
 type Nzb struct {
     Meta  map[string]string
-    Files []NzbFile
+    Files []*NzbFile
 }
 ```
 
 
 ```go
-func New(buf io.Reader) (*Nzb, os.Error)
-```
-
-```go
-func NewString(data string) (*Nzb, os.Error)
+func New(buf []byte) (*Nzb, error)
 ```
 
 ```go
 type NzbFile struct {
     Groups   []string     `xml:"groups>group"`
     Segments []NzbSegment `xml:"segments>segment"`
-    Poster   string       `xml:"attr"`
-    Date     int          `xml:"attr"`
-    Subject  string       `xml:"attr"`
+    Poster   string       `xml:"poster,attr"`
+    Date     int          `xml:"date,attr"`
+    Subject  string       `xml:"subject,attr"`
     Part     int
 }
 ```
@@ -44,9 +40,9 @@ type NzbFile struct {
 ```go
 type NzbSegment struct {
     XMLName xml.Name `xml:"segment"`
-    Bytes   int      `xml:"attr"`
-    Number  int      `xml:"attr"`
-    Id      string   `xml:"innerxml"`
+    Bytes   int      `xml:"bytes,attr"`
+    Number  int      `xml:"number,attr"`
+    Id      string   `xml:",innerxml"`
 }
 ```
 
