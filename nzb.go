@@ -29,11 +29,7 @@ func New(buf []byte) (*Nzb, error) {
 	for _, md := range xnzb.Metadata {
 		nzb.Meta[md.Type] = md.Value
 	}
-	// copy files into (sortable) NzbFileSlice
-	nzb.Files = make(NzbFileSlice, 0)
-	for i, _ := range xnzb.File {
-		nzb.Files = append(nzb.Files, &xnzb.File[i])
-	}
+	nzb.Files = NzbFileSlice(xnzb.File)
 	return nzb, nil
 }
 
@@ -41,7 +37,7 @@ func New(buf []byte) (*Nzb, error) {
 type xNzb struct {
 	XMLName  xml.Name   `xml:"nzb"`
 	Metadata []xNzbMeta `xml:"head>meta"`
-	File     []NzbFile  `xml:"file"` // xml:tag name doesn't work?
+	File     []*NzbFile  `xml:"file"` // xml:tag name doesn't work?
 }
 
 // used only in unmarshalling xml
