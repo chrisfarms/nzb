@@ -26,7 +26,7 @@ const testNzbXml = `<?xml version="1.0" encoding="utf-8" ?>
 func TestNzbParse(t *testing.T) {
 	nzb, err := NewString(testNzbXml)
 	if err != nil {
-		t.Fatalf("expected to parse nzb data: " + err.String())
+		t.Fatalf("expected to parse nzb data: " + err.Error())
 	}
 	if nzb.Meta["title"] != "Your File!" {
 		t.Errorf("expected name data to be 'Your File' got %s", nzb.Meta["title"])
